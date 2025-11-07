@@ -1,0 +1,10 @@
+    //Sum of Nodes of Tree
+    public static int sumNodes(Node root) {
+        if(root == null){
+            return 0;
+        }
+        int leftSum = sumNodes(root.left);
+        int rightSum = sumNodes(root.right);
+
+        return leftSum + rightSum + root.data;
+    }
