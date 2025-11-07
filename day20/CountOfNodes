@@ -1,0 +1,9 @@
+//Count of Nodes of Tree
+    public static int countOfNodes(Node root){
+        if(root == null) return 0;
+        int leftNode = countOfNodes(root.left);
+        int rightNode = countOfNodes(root.right);
+
+        return leftNode + rightNode + 1;
+    }
+
