@@ -1,0 +1,24 @@
+//here 2nd appraoach towards diameter of the tree
+static class TreeInfo{
+  int ht;
+  int diam;
+
+  TreeInfo(int ht, int diam){
+    this.ht = ht;
+    this.diam = diam;
+  }
+}
+
+public static TreeInfo diameter(Node root){
+  TreeInfo left = diameter(root.left);
+  TreeInfo right = diameter(root.right);
+
+  int myHeight = Math.max(left.ht,right.ht)+1;
+
+  int diam1 = left.diam;
+  int diam2 = right.diam;
+  int diam3 = left.ht + right.ht + 1;
+
+  int mydiam = Math.max(Math.max(diam1, diam2), diam3;
+
+                        }
