@@ -1,0 +1,58 @@
+import java.util.*;
+
+public class Solution {
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> res = new ArrayList<>();
+        int[] queens = new int[n];              // queens[row] = col where queen is placed in that row
+        Arrays.fill(queens, -1);
+
+        boolean[] cols = new boolean[n];        // column occupied?
+        boolean[] diag1 = new boolean[2 * n];  // r + c  (primary diagonals)
+        boolean[] diag2 = new boolean[2 * n];  // r - c + n  (secondary diagonals)
+
+        backtrack(0, n, queens, cols, diag1, diag2, res);
+        return res;
+    }
+
+    private void backtrack(int row, int n, int[] queens,
+                           boolean[] cols, boolean[] diag1, boolean[] diag2,
+                           List<List<String>> res) {
+        if (row == n) {
+            res.add(buildBoard(queens, n));
+            return;
+        }
+
+        for (int col = 0; col < n; col++) {
+            int d1 = row + col;          // index for primary diagonal
+            int d2 = row - col + n;      // index for secondary diagonal (shifted by n to be non-negative)
+
+            if (cols[col] || diag1[d1] || diag2[d2]) continue; // not safe
+
+            // place queen
+            queens[row] = col;
+            cols[col] = true;
+            diag1[d1] = true;
+            diag2[d2] = true;
+
+            // move to next row
+            backtrack(row + 1, n, queens, cols, diag1, diag2, res);
+
+            // remove queen (backtrack)
+            queens[row] = -1;
+            cols[col] = false;
+            diag1[d1] = false;
+            diag2[d2] = false;
+        }
+    }
+
+    private List<String> buildBoard(int[] queens, int n) {
+        List<String> board = new ArrayList<>();
+        for (int r = 0; r < n; r++) {
+            char[] row = new char[n];
+            Arrays.fill(row, '.');
+            row[queens[r]] = 'Q';
+            board.add(new String(row));
+        }
+        return board;
+    }
+}
