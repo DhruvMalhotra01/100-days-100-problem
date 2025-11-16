@@ -1,0 +1,30 @@
+class Solution {
+    public List<Integer> lexicalOrder(int n) {
+        List<Integer> list = new ArrayList<>();
+        int curr = 1;
+
+        // We need to generate exactly n numbers
+        for (int i = 0; i < n; i++) {
+
+            list.add(curr); // Add current number
+
+            // 1️⃣ Try to go deeper (e.g. 1 -> 10 -> 100)
+            if (curr * 10 <= n) {
+                curr *= 10;
+            } 
+            // 2️⃣ Try to go to next sibling (e.g. 12 -> 13)
+            else if (curr + 1 <= n && curr % 10 != 9) {
+                curr++;
+            } 
+            // 3️⃣ Otherwise go up until we can move right
+            else {
+                while ((curr % 10 == 9) || (curr + 1 > n)) {
+                    curr /= 10;     // move up (backtrack)
+                }
+                curr++;
+            }
+        }
+
+        return list;
+    }
+}
