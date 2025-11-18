@@ -1,6 +1,7 @@
 class subSequenceII {
     List<List<Integer>> result = new ArrayList<>();
     public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
         backtrack(nums, new ArrayList<>(),0);
         return result;
     }
